@@ -10,7 +10,7 @@ const App = () => {
     <Sidebar/>
       <Routes>
         
-        <Route path="/inbox" element={<Inbox />} />
+        <Route path="/" element={<Inbox />} />
         <Route path="/input" element={<Input />} />
         <Route path="/messagemodule/:id" element={<MessageModule />} />
       </Routes>

@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 
 const MessageModule = () => {
   const [module, setModule] = useState([]);
+  const [read,setRead] = useState("");
   
   const {id}  = useParams()
   useEffect(() => {
@@ -20,9 +21,11 @@ const MessageModule = () => {
   }, [id]);
   useEffect(() => {
     axios
-      .get(`http://65.108.77.50:5777/messages?id=${id}&read=1`)
-      .then(() => {
+      .get(`http://65.108.77.50:5777/messages?id=${id}&is_read=1`)
+      .then((res) => {
+       
         //setRead(response.data);
+        setRead(res?.data?.is_read)
       })
       .catch((error) => {
         console.error(error);

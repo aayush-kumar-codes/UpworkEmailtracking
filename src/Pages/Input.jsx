@@ -8,8 +8,16 @@ import "react-toastify/dist/ReactToastify.css";
 
 const Input = () => {
   const [invite, setInvite] = useState([]);
-  const [copiedUrl, setCopiedUrl] = useState("")
+  const [copiedUrl, setCopiedUrl] = useState("");
 
+  const truncateTitle = (title) => {
+    const words = title.split(" ");
+    if (words.length > 3) {
+      const truncatedWords = words.slice(0, 3);
+      return truncatedWords.join(" ") + "...";
+    }
+    return title;
+  };
   useEffect(() => {
     axios
       .get("http://65.108.77.50:5777/invites")
@@ -21,24 +29,26 @@ const Input = () => {
         console.error(error);
       });
   }, []);
-  
+
   const copyUrl = (url) => {
     navigator.clipboard
       .writeText(url)
       .then(() => {
         console.log("URL copied to clipboard:", url);
         setCopiedUrl(url);
-        toast.success("URL Copied!")
+        toast.success("URL Copied!");
       })
       .catch((error) => {
         console.error("Failed to copy URL to clipboard:", error);
       });
   };
+  
 
   return (
     <>
       <Header
-        Title={"Email"}
+        Title={"Title"}
+        Email={'Email'}
         Describe={"Received at "}
         Data={"Action"}
         className={"mr-[10vw]"}
@@ -49,6 +59,10 @@ const Input = () => {
             className="flex bg-slate-50 p-1 border-b rounded-lg border-black cursor-pointer px-2 py-2"
             key={index}
           >
+            <h1 className="bg-slate-50 p-1 font-bold rounded-lg w-[25%] text-slate-500 mr-[4%]">
+              {truncateTitle(item.email_subject)}
+            </h1>
+
             <h1 className="bg-slate-50 p-1 font-bold rounded-lg w-[25%] text-slate-500 mr-[4%]">
               {item.email_to}
             </h1>
@@ -72,5 +86,3 @@ const Input = () => {
 };
 
 export default Input;
-
-

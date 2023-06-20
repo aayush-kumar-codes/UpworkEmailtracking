@@ -18,7 +18,7 @@ const Inbox = () => {
     axios
       .get("http://65.108.77.50:5777/messages")
       .then((response) => {
-        console.log(response, 'Abhiiiiiiiiiiiiiiiiiiiiii')
+        console.log(response, "Abhiiiiiiiiiiiiiiiiiiiiii");
         setMessages(response.data);
         setReadMessages(response?.data?.is_read);
       })
@@ -45,7 +45,12 @@ const Inbox = () => {
   };
   return (
     <>
-    <Header Title={'Title'} Describe={'Description'} Data={'Received at '} className={'mr-[20vw]'}/>
+      <Header
+        Title={"Title"}
+        Describe={"Received at"}
+        Email={"Description "}
+        className={"mr-[15vw]"}
+      />
       <div className="p-4 sm:ml-64">
         {messages?.map((item, index) => {
           return (
